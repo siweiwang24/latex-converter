@@ -3,6 +3,7 @@ Copyright 2020. Siwei Wang.
 
 LaTeX math environment dollar sign to parentheses converter.
 */
+#include <cstring>
 #include <exception>
 #include <fstream>
 #include <iostream>
@@ -13,6 +14,14 @@ using std::ios_base;
 using std::noskipws;
 using std::ofstream;
 using std::runtime_error;
+using std::strcmp;
+
+/**
+ * An assertion that throws runtime_error on fail.
+ */
+inline void assert_throw(bool pred, const char* const msg) {
+  if (!pred) throw runtime_error(msg);
+}
 
 int main(int argc, char** argv) {
   ios_base::sync_with_stdio(false);
@@ -21,15 +30,14 @@ int main(int argc, char** argv) {
   cout << "Usage: ./ltx input.tex output.tex\n";
 
   // Check that command line arguments match up.
-  if (argc != 3) {
-    throw runtime_error("Program requires 2 command line arguments.");
-  }
+  assert_throw(argc == 3, "Program requires 2 command line arguments.");
+
+  // Check for input and output equality.
+  assert_throw(strcmp(argv[1], argv[2]) != 0,
+               "Input and output files must be different.");
 
   // Open input file stream.
   ifstream fin(argv[1]);
-  if (!fin.is_open()) {
-    throw runtime_error("Could not open input file.");
-  }
   // Make sure to preserve all white space.
   fin >> noskipws;
 
