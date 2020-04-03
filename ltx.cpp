@@ -29,20 +29,16 @@ int main(int argc, char** argv) {
   cout << "Converts $ <math> $ to \\( <math> \\) in LaTeX documents.\n";
   cout << "Usage: ./ltx input.tex output.tex\n";
 
-  // Check that command line arguments match up.
   assert_throw(argc == 3, "Program requires 2 command line arguments.");
-
-  // Check for input and output equality.
   assert_throw(strcmp(argv[1], argv[2]) != 0,
                "Input and output files must be different.");
 
-  // Open input file stream.
   ifstream fin(argv[1]);
-  // Make sure to preserve all white space.
+  assert_throw(fin.is_open(), "Failed to open input file.");
   fin >> noskipws;
 
-  // Open output file stream.
   ofstream fout(argv[2]);
+  assert_throw(fout.is_open(), "Failed to open output file.");
 
   cout << "Transforming " << argv[1] << " into " << argv[2] << "...\n";
 
