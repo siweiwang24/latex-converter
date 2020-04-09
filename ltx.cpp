@@ -26,8 +26,11 @@ inline void assert_throw(bool pred, const char* const msg) {
 int main(int argc, char** argv) {
   ios_base::sync_with_stdio(false);
 
-  cout << "Converts $ <math> $ to \\( <math> \\) in LaTeX documents.\n";
-  cout << "Usage: ./ltx input.tex output.tex\n";
+  if (argc == 1) {
+    cout << "Converts $ <math> $ to \\( <math> \\) in LaTeX documents.\n";
+    cout << "Usage: ./ltx input.tex output.tex\n";
+    return 0;
+  }
 
   assert_throw(argc == 3, "Program requires 2 command line arguments.");
   assert_throw(strcmp(argv[1], argv[2]) != 0,
