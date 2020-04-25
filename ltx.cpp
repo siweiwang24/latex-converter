@@ -19,7 +19,7 @@ using std::strcmp;
 /**
  * An assertion that throws runtime_error on fail.
  */
-inline void assert_throw(bool pred, const char* const msg) {
+inline void assert_throw(bool pred, const char* msg) {
   if (!pred) throw runtime_error(msg);
 }
 
