@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
 
   if (argc == 1) {
     cout << "Converts $ <math> $ to \\( <math> \\) in LaTeX documents.\n";
-    cout << "Usage: ./ltx input.tex output.tex\n";
+    cout << "Usage: " << argv[0] << " input.tex output.tex\n";
     return 0;
   }
 
@@ -48,16 +48,17 @@ int main(int argc, char** argv) {
   bool toggle = true;
 
   // x contains the character BEFORE y.
-  for (char x = '0', y = '0'; fin >> y; x = y) {
+  for (char x = '\0', y = '\0'; fin >> y; x = y) {
     // Don't change if this is a LITERAL dollar sign.
     if (y == '$' && x != '\\') {
-      // Output parenthesis depends on toggle value.
+      // Output parentheses depending on toggle.
       fout << (toggle ? "\\(" : "\\)");
       toggle = !toggle;
     } else {
+      // Otherwise, just copy down character.
       fout << y;
     }
   }
 
-  cout << "Finished!\n";
+  cout << "Conversion finished!\n";
 }
